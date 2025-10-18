@@ -1,0 +1,5 @@
+
+{
+  "name": "AI Voice Generator",
+  "description": "A web application that converts text into speech using a realistic AI voice powered by the Gemini API. Enter text and generate high-quality audio."
+}
