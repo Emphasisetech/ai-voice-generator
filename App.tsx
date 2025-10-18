@@ -57,7 +57,7 @@ const App: React.FC = () => {
             </h1>
           </div>
           <p className="mt-2 text-lg text-slate-400">
-            Convert text to speech with a realistic AI voice powered by Gemini.
+            Convert text to speech with a realistic AI voice powered EmphasiseTech.
           </p>
         </header>
 
