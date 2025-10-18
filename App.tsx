@@ -112,7 +112,7 @@ const App: React.FC = () => {
         {/* <InfoPanel /> */}
 
         <footer className="text-center mt-12 text-slate-500 text-sm">
-          <p>The future belongs to those who believe in the beauty of their dreams.  
+          <p>The future belongs to those who believe in the beauty of their dreams...  
             <a href="https://emphasisetech.in/" style={{ color: `rgb(244 237 237)`, textDecoration: 'none', fontWeight: 'bold' }}>
               EmphasiseTech
             </a>
