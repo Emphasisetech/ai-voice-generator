@@ -14,7 +14,7 @@ if (!API_KEY) {
 const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 /**
- * Generates speech from text using the Gemini API.
+ * Generates speech from text using the EmphasiseTech API.
  * 
  * @param text The text to convert to speech.
  * @returns An AudioBuffer containing the generated speech.

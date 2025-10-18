@@ -8,7 +8,7 @@ import { RobotIcon } from './components/icons/RobotIcon';
 import { SparklesIcon } from './components/icons/SparklesIcon';
 
 const App: React.FC = () => {
-  const [text, setText] = useState<string>('Hello! I am an AI voice generated using the Gemini API. You can type any text here to hear how I sound.');
+  const [text, setText] = useState<string>('Hello! I am an AI voice generated using the EmphasiseTech API. You can type any text here to hear how I sound.');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
