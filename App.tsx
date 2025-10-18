@@ -29,14 +29,14 @@ const App: React.FC = () => {
       const wavBlob = bufferToWav(audioBuffer);
       const url = URL.createObjectURL(wavBlob);
       setAudioUrl(url);
-      
+
       // Auto-play the audio once it's ready
-      if(audioRef.current) {
-         audioRef.current.src = url;
-         audioRef.current.load();
-         audioRef.current.play().catch(e => console.error("Autoplay was prevented.", e));
+      if (audioRef.current) {
+        audioRef.current.src = url;
+        audioRef.current.load();
+        audioRef.current.play().catch(e => console.error("Autoplay was prevented.", e));
       }
-      
+
     } catch (e) {
       console.error(e);
       const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
@@ -77,7 +77,7 @@ const App: React.FC = () => {
                 disabled={isLoading}
               />
             </div>
-            
+
             <button
               onClick={handleGenerate}
               disabled={isLoading || !text.trim()}
@@ -95,7 +95,7 @@ const App: React.FC = () => {
                 </>
               )}
             </button>
-            
+
             {error && <p className="text-red-400 text-sm text-center bg-red-900/50 p-3 rounded-lg border border-red-700">{error}</p>}
 
             {audioUrl && (
@@ -108,11 +108,15 @@ const App: React.FC = () => {
             )}
           </div>
         </main>
-        
+
         {/* <InfoPanel /> */}
 
         <footer className="text-center mt-12 text-slate-500 text-sm">
-            <p>Built with React, TailwindCSS, and the Google Gemini API.</p>
+          <p>The future belongs to those who believe in the beauty of their dreams.  
+            <a href="https://emphasisetech.in/" style={{ color: `rgb(244 237 237)`, textDecoration: 'none', fontWeight: 'bold' }}>
+              EmphasiseTech
+            </a>
+          </p>
         </footer>
       </div>
     </div>
