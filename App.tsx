@@ -109,7 +109,7 @@ const App: React.FC = () => {
           </div>
         </main>
         
-        <InfoPanel />
+        {/* <InfoPanel /> */}
 
         <footer className="text-center mt-12 text-slate-500 text-sm">
             <p>Built with React, TailwindCSS, and the Google Gemini API.</p>
