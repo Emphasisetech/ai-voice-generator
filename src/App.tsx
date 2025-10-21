@@ -32,6 +32,7 @@ const AppContent: React.FC = () => {
   const { user } = useAuth();
 
   const urls = [
+    "https://ai-tools-api-klod.onrender.com",
     "https://left-right-api.onrender.com",
     "https://leadgen-api-58tl.onrender.com",
     // "https://emp-prod-apis.onrender.com",

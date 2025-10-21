@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { getDataFromLc } from './helper';
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL || 'http://localhost:7000/api/v1',
+  baseURL: import.meta.env.VITE_BACKEND_URL || 'https://ai-tools-api-klod.onrender.com/api/v1',
   headers: { 'Content-Type': 'application/json' },
 });
 
