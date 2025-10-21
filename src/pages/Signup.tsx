@@ -70,7 +70,7 @@ const Signup: React.FC = () => {
         <div className="text-center">
           <div className="flex justify-center">
             <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center">
-              <span className="text-gray-900 font-bold text-xl">CI</span>
+              <span className="text-gray-900 font-bold text-xl">AT</span>
             </div>
           </div>
           <h2 className="mt-6 text-3xl font-extrabold text-white">
