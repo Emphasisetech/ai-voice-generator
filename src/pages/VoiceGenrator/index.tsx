@@ -2,10 +2,9 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { generateSpeech } from './services/geminiService';
 import { bufferToWav } from './services/audioService';
-import Spinner from './components/Spinner';
-import InfoPanel from './components/InfoPanel';
 import { RobotIcon } from '../../components/icons/RobotIcon';
 import { SparklesIcon } from '../../components/icons/SparklesIcon';
+import Spinner from '../../components/Spinner';
 
 const App: React.FC = () => {
   const [text, setText] = useState<string>('Hello! I am an AI voice generated using the EmphasiseTech API. You can type any text here to hear how I sound.');
