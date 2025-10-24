@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { SignupPayload, SignupResponse } from '../types';
+import { ProfileForm, SignupPayload, SignupResponse } from '../types';
 import { removeDataFromLc, getDataFromLc, setDataIntoLc } from '../utils/helper';
 import { loginApi, signupApi, updateUserProfile } from '../utils/api/user';
 import { LoginResponse } from '../types';
@@ -10,7 +10,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<LoginResponse>;
   signup: (userData: Omit<SignupPayload, 'id' | 'createdAt'>) => Promise<boolean>;
   logout: () => void;
-  updateUser: (userData: Partial<SignupResponse>) => void;
+  updateUser: (userData: ProfileForm) => void;
   isLoading: boolean;
 }
 
@@ -63,7 +63,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 
   const signup = async (
-    userData: Omit<SignupPayload, "id" | "createdAt">
+    userData: SignupPayload
   ): Promise<SignupResponse | null> => {
     try {
       setIsLoading(true);
