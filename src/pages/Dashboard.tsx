@@ -1,130 +1,173 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Card from '../components/UI/Card';
-import Button from '../components/UI/Button';
-import {
-  DollarSign,
-  TrendingUp,
-  Users,
-  UserPlus,
-  Wallet,
-  ArrowUpRight,
-  PiggyBank,
-  Gift
-} from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { DashboardData } from '../types';
-import { getactivityForDashboard, getDashboard } from '../utils/api/user';
 import { RobotIcon } from '../components/icons/RobotIcon';
-
-// Mock data for charts
-const roiData = [
-  { calculationDate: 'Day 1', amount: 0 },
-  { calculationDate: 'Day 2', amount: 0 },
-  { calculationDate: 'Day 3', amount: 0 },
-  { calculationDate: 'Day 4', amount: 0 },
-  { calculationDate: 'Day 5', amount: 0 },
-  { calculationDate: 'Day 6', amount: 0 },
-  { calculationDate: 'Day 7', amount: 0 },
-];
-
-interface IActivityData {
-  teamInvestment?: number;
-  newMembers?: number;
-  totalTeamEarnings?: number;
-}
+import toast from "react-hot-toast";
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const [dashboardData, setDashboardData] = useState<DashboardData>({
-    totalInvestment: 0,
-    dailyROI: 0,
-    totalROI: 0,
-    todayTeamInvestment: 0,
-    todayNewMembers: 0,
-    teamEarnings: 0,
-    totalTeamSize: 0,
-    totalTeamInvestments: 0,
-    totalTeamEarnings: 0,
-    todayEarning: 0,
-    recentROI: roiData,
-  });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    let active = true;
+  const handleCardClick = (path?: string, isActive?: boolean) => {
+    if (isActive && path) {
+      navigate(path);
+    } else {
+      toast("🚧 Coming Soon!", {
+        icon: "⏳",
+        style: {
+          borderRadius: "8px",
+          background: "#1e293b",
+          color: "#facc15",
+          fontWeight: 500,
+        },
+      });
+    }
+  };
 
-    const fetchData = async () => {
-      try {
-        const data = await getDashboard();
-        if (active) setDashboardData(data);
-      } catch (err: any) {
-        if (active) setError(err.response?.data?.message || "Failed to load dashboard");
-      } finally {
-        if (active) setLoading(false);
-      }
-    };
-    fetchData();
-    return () => {
-      active = false;
-    };
-  }, []);
-
-
-  const StatCard: React.FC<{
+  const FeatureCard: React.FC<{
     title: string;
-    value: string;
+    description: string;
     icon: React.ReactNode;
-    change?: string;
-    changeType?: 'positive' | 'negative';
-    onClick?: () => void;
     path?: string;
-  }> = ({ title, value, icon, change, changeType, onClick, path }) => (
-    <Card hover className="relative overflow-hidden">
-      <Link to={path} className="text-gray-300 hover:text-yellow-400 transition-colors">
-
-        <div className="flex items-center justify-between" onClick={onClick}>
-          <div className="p-3 bg-yellow-500 bg-opacity-20 rounded-lg">
-            {icon}
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl margin-left:27px">
-              {title}
-            </h1>
-          </div>
+    isActive?: boolean;
+  }> = ({ title, description, icon, path, isActive = false }) => (
+    <div
+      onClick={() => handleCardClick(path, isActive)}
+      className={`cursor-pointer group block rounded-2xl bg-[#0f172a]/60 border border-gray-700/50 
+                 hover:border-yellow-400/60 hover:shadow-[0_4px_20px_rgba(250,204,21,0.15)]
+                 transition-all duration-300 ease-out p-6 backdrop-blur-md
+                 ${!isActive ? "opacity-70 hover:opacity-90" : ""}`}
+    >
+      <div className="flex items-center gap-4">
+        <div className="p-3 bg-cyan-500/10 rounded-xl group-hover:bg-cyan-500/20 transition">
+          {icon}
         </div>
-
-      </Link>
-    </Card>
+        <div>
+          <h3
+            className={`text-xl font-semibold ${
+              isActive
+                ? "text-white group-hover:text-yellow-400"
+                : "text-gray-400 group-hover:text-yellow-400"
+            } transition`}
+          >
+            {title}
+          </h3>
+          <p className="text-gray-400 text-sm mt-1">{description}</p>
+        </div>
+      </div>
+    </div>
   );
 
   return (
-    <div className="min-h-screen bg-gray-900 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white">Welcome Back, {user?.name
-            ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
-            : ""}</h1>
-          <p className="text-gray-400 mt-2">We Are Here For Your Help</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0f1f] via-[#111827] to-[#0f172a] p-8">
+      <div className="max-w-7xl mx-auto space-y-10">
+        {/* Header */}
+        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-white">
+              Hello,{" "}
+              <span className="text-yellow-400">
+                {user?.name
+                  ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                  : "User"}
+              </span>
+            </h1>
+            <p className="text-gray-400 mt-1">
+              Welcome back — manage your AI tools and productivity suite
+            </p>
+          </div>
 
-        {/* Statistics Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatCard
-            title="AI Voice Generator"
-            value={`$${dashboardData?.totalInvestment}`}
-            icon={<RobotIcon className="w-10 h-10 text-cyan-400" />}
-            onClick={() => {
-              console.log(">>>>>>>>");
-            }}
-            path='/voice-genrator'
-          />
+          <div className="mt-4 sm:mt-0">
+            <button
+              className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 font-semibold 
+                         px-5 py-2.5 rounded-lg shadow hover:shadow-lg hover:from-yellow-500 hover:to-yellow-700 
+                         transition-all duration-200"
+            >
+              Upgrade Plan
+            </button>
+          </div>
+        </header>
 
-        </div>
-
-
+        {/* Cards Section */}
+        <section>
+          <h2 className="text-xl font-semibold text-gray-300 mb-6">
+            My Tools
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <FeatureCard
+              title="AI Voice Generator"
+              description="Create lifelike AI voices in seconds with multiple languages."
+              icon={<RobotIcon className="w-8 h-8 text-cyan-400" />}
+              path="/voice-genrator"
+              isActive={true}
+            />
+            <FeatureCard
+              title="Image Generator"
+              description="Generate high-quality images from text prompts instantly."
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-8 h-8 text-cyan-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              }
+              isActive={false}
+              path="/image-generator"
+            />
+            <FeatureCard
+              title="Video Tools"
+              description="AI-powered tools for video editing, face swap, and more."
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-8 h-8 text-cyan-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M15 10l4.553 2.276A1 1 0 0120 13.17V17a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h14a1 1 0 011 1v3.83a1 1 0 01-.447.894L15 13v-3z"
+                  />
+                </svg>
+              }
+              isActive={false}
+            />
+            <FeatureCard
+              title="Analytics"
+              description="Track usage, performance, and user engagement metrics."
+              icon={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-8 h-8 text-cyan-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M4 19V5m8 14V9m8 10V3"
+                  />
+                </svg>
+              }
+              isActive={false}
+            />
+          </div>
+        </section>
       </div>
     </div>
   );

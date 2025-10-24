@@ -9,13 +9,6 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
-import Deposit from './pages/Deposit';
-import Withdrawal from './pages/Withdrawal';
-import Team from './pages/Team';
-import Earnings from './pages/Earnings';
-import Rewards from './pages/Rewards';
-import Admin from './pages/Admin';
-import ForgotPassword from './pages/ForgotPassword';
 import VoiceGenrator from './pages/VoiceGenrator';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -83,12 +76,7 @@ const AppContent: React.FC = () => {
               <Signup />
             </PublicRoute>
           } />
-         {/* <Route path="/forgot-password" element={
-            <PublicRoute>
-              <ForgotPassword />
-            </PublicRoute>
-          } /> */}
-
+       
           {/* Protected Routes */}
            <Route path="/voice-genrator" element={
             <ProtectedRoute>
