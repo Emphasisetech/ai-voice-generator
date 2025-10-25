@@ -88,7 +88,7 @@ const Header: React.FC = () => {
               >
                 Dashboard
               </Link>
-              <Link 
+              {/* <Link 
                 to="/team" 
                 className="text-gray-300 hover:text-yellow-400 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
@@ -117,7 +117,7 @@ const Header: React.FC = () => {
                 >
                   Admin
                 </Link>
-              )}
+              )} */}
               <Link 
                 to="/profile" 
                 className="text-gray-300 hover:text-yellow-400 transition-colors flex items-center space-x-2"
