@@ -36,10 +36,8 @@ export interface SignupForm {
   name: string;
   email: string;
   phone: string;
-  walletAddress?: string;
   password: string;
   confirmPassword: string;
-  referralCode?: string;
 }
 
 export interface ForgotPasswordForm {
