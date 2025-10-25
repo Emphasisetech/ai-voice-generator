@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 interface AuthContextType {
   user: SignupPayload | null;
   login: (email: string, password: string) => Promise<LoginResponse>;
-  signup: (userData: Omit<SignupPayload, 'id' | 'createdAt'>) => Promise<boolean>;
+  signup: (userData: SignupPayload) => Promise<SignupResponse | null>;
   logout: () => void;
   updateUser: (userData: ProfileForm) => void;
   isLoading: boolean;
@@ -19,7 +19,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<SignupPayload | null>(null);
+  const [user, setUser] = useState<any>({
+    name: '',
+    email: '',
+  });
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,7 +32,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const storedUser = getDataFromLc<SignupPayload>("userId", true);
     const storedToken = getDataFromLc<string>("token");
     if (storedUser && storedToken) {
-      setUser(storedUser);
+      storedUser && setUser(storedUser);
       setToken(storedToken);
     }
   }, []);
@@ -64,7 +67,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const signup = async (
     userData: SignupPayload
-  ): Promise<SignupResponse | null> => {
+  ): Promise<SignupResponse| null> => {
     try {
       setIsLoading(true);
       const res = await signupApi(userData);
